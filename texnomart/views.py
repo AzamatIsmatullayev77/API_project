@@ -1,4 +1,5 @@
-from rest_framework.generics import GenericAPIView,CreateAPIView,DestroyAPIView,UpdateAPIView,RetrieveAPIView,ListCreateAPIView,RetrieveUpdateDestroyAPIView
+from rest_framework.generics import GenericAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, \
+    ListCreateAPIView, RetrieveUpdateDestroyAPIView
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.db.models import Max, Min, Count, Avg
@@ -7,8 +8,8 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from texnomart.models import Product
-from texnomart.serializers import ProductModelSerializer
+from texnomart.models import Product, Images
+from texnomart.serializers import ProductModelSerializer, ImageSerializer
 
 
 # Create your views here.
@@ -109,9 +110,35 @@ class ProductListOrCreateG(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
+
 class ProductDetailG(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductModelSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
+
+
+class ImageListOrCreateG(ListCreateAPIView):
+    queryset = Images.objects.all()
+    serializer_class = ImageSerializer
+
+    def get(self, request, *args, **kwargs):
+        return self.list(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
+
+
+class ImageDetailG(RetrieveUpdateDestroyAPIView):
+    queryset = Images.objects.all()
+    serializer_class = ImageSerializer
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
