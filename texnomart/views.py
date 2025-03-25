@@ -104,47 +104,14 @@ class ProductListOrCreateG(ListCreateAPIView):
     serializer_class = ProductModelSerializer
     permission_classes = [AllowAny]
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-
 class ProductDetailG(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductModelSerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
-
 
 class ImageListOrCreateG(ListCreateAPIView):
     queryset = Images.objects.all()
     serializer_class = ImageSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.list(request, *args, **kwargs)
-
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
-
-
 class ImageDetailG(RetrieveUpdateDestroyAPIView):
     queryset = Images.objects.all()
     serializer_class = ImageSerializer
-
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
