@@ -1,3 +1,4 @@
+
 from django.contrib import admin
 from django.urls import path,include
 from texnomart.views import  *
@@ -7,5 +8,6 @@ urlpatterns = [
     path('product-list/<int:pk>/', ProductDetailG.as_view(),name='product-detail'),
     path('image-list/', ImageListOrCreateG.as_view(),name='image-list'),
     path('image-list/<int:pk>/', ImageDetailG.as_view(),name='image-detail'),
-
+    path('comment-list/',CommentList.as_view(),name='comment-list'),
+    path('comment/<int:pk>/',CommentListByProduct.as_view(),name='comment-list-by-product'),
 ]

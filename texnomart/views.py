@@ -1,5 +1,5 @@
 from rest_framework.generics import GenericAPIView, CreateAPIView, DestroyAPIView, UpdateAPIView, RetrieveAPIView, \
-    ListCreateAPIView, RetrieveUpdateDestroyAPIView
+    ListCreateAPIView, RetrieveUpdateDestroyAPIView, ListAPIView
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.db.models import Max, Min, Count, Avg
@@ -8,8 +8,10 @@ from rest_framework.decorators import api_view
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from texnomart.models import Product, Images
-from texnomart.serializers import ProductModelSerializer, ImageSerializer
+
+
+from texnomart.models import Product, Images,Comment
+from texnomart.serializers import ProductModelSerializer, ImageSerializer,CommentSerializer
 
 
 # Create your views here.
@@ -115,3 +117,15 @@ class ImageListOrCreateG(ListCreateAPIView):
 class ImageDetailG(RetrieveUpdateDestroyAPIView):
     queryset = Images.objects.all()
     serializer_class = ImageSerializer
+
+class CommentList(ListAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+class CommentListByProduct(ListAPIView):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+        product_id = self.kwargs['pk']
+        queryset = Comment.objects.filter(product_id=product_id)
+        return queryset
