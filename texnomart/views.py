@@ -1,5 +1,4 @@
-from rest_framework.generics import GenericAPIView
-from rest_framework.mixins import ListModelMixin, CreateModelMixin,RetrieveModelMixin,UpdateModelMixin,DestroyModelMixin
+from rest_framework.generics import GenericAPIView,CreateAPIView,DestroyAPIView,UpdateAPIView,RetrieveAPIView,ListCreateAPIView,RetrieveUpdateDestroyAPIView
 from django.shortcuts import render
 from django.views.generic import ListView
 from django.db.models import Max, Min, Count, Avg
@@ -99,7 +98,7 @@ from texnomart.serializers import ProductModelSerializer
 #             return Response(serializers.data, status=status.HTTP_202_ACCEPTED)
 #         return Response(serializers.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class ProductListOrCreateG(GenericAPIView, ListModelMixin, CreateModelMixin):
+class ProductListOrCreateG(ListCreateAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductModelSerializer
     permission_classes = [AllowAny]
@@ -110,7 +109,7 @@ class ProductListOrCreateG(GenericAPIView, ListModelMixin, CreateModelMixin):
     def post(self, request, *args, **kwargs):
         return self.create(request, *args, **kwargs)
 
-class ProductDetailG(GenericAPIView, RetrieveModelMixin, UpdateModelMixin, DestroyModelMixin):
+class ProductDetailG(RetrieveUpdateDestroyAPIView):
     queryset = Product.objects.all()
     serializer_class = ProductModelSerializer
 
